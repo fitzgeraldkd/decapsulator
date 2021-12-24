@@ -1,70 +1,34 @@
-# decapsulator README
+# Decapsulator
 
-This is the README for your extension "decapsulator". After writing up a brief description, we recommend including the following sections.
+Decapsulator is an extension that allows you to quickly remove certain characters from the start and end of a string. This is meant to provide a quick way to remove characters like quotes or brackets that wrap the selection so you can encapsulate them in something else.
 
-## Features
+To prevent the unintentional removal of characters, the command will only execute if the selection starts and ends with a pair of strings specified in the settings.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+The default shortcuts are as follows:
 
-For example if there is an image subfolder under your extension project workspace:
+- Windows: `Ctrl+Shift+A`
+- Mac: TBD
 
-\!\[feature X\]\(images/feature-x.png\)
+## Demo
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+![Demo of Decapsulator](./decapsulator-demo.gif)
 
-## Requirements
+## Settings
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+The characters that can be removed by the application are limited to what's specified in the settings.
 
-## Extension Settings
+![Demo of Decapsulator](./decapsulator-settings.png)
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+### Delimiter
 
-For example:
+The delimiter is the character separating the opening and closing string that can be removed from the user's selection. By default, this is a single space.
 
-This extension contributes the following settings:
+### Decapsulator Pairs
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+The list of pairs here represents the list of opening and closing characters that can removed from the selection.
 
-## Known Issues
+With the settings as shown in the screenshot, here are some expected outputs based on the current selection:
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- `"Hello World!"` would become `Hello World!`
+- `|Hello World!|` would not change (the opening and closing pipe characters are not listed in the settings)
+- `"Hello World!'` would not change (the opening double-quote and closing single-quote characters are not paired together in the settings)
