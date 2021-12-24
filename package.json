@@ -19,7 +19,43 @@
 				"command": "decapsulator.decapsulate",
 				"title": "Decapsulate"
 			}
-		]
+		],
+		"keybindings": [
+			{
+				"command": "decapsulator.decapsulate",
+				"key": "ctrl+shift+a",
+				"when": "editorTextFocus && editorHasSelection"
+			}
+		],
+		"configuration": {
+			"title": "Decapsulator",
+			"properties": {
+				"decapsulator.delimiter": {
+					"type": "string",
+					"description": "The value used to separate the opening character(s) from the closing character(s). The default is a single space.",
+					"default": " ",
+					"order": 1
+				},
+				"decapsulator.decapsulatorPairs": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Values representing the opening and closing characters that can be decapsulated. Each pair should be delimited with the character specified above.",
+					"default": [
+						"' '",
+						"\" \"",
+						"( )",
+						"[ ]",
+						"{ }",
+						"` `",
+						"< >"
+					],
+					"order": 2
+				}
+			},
+			"description": "Specify the start and end characters that can be decapsulated."
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
