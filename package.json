@@ -1,7 +1,11 @@
 {
   "name": "decapsulator",
 	"displayName": "decapsulator",
-	"description": "",
+	"description": "Remove quotes/brackets encapsulating the current selection.",
+	"author": {
+		"name": "Kenny Fitzgerald"
+	},
+	"icon": "decapsulator-icon.png",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.63.0"
