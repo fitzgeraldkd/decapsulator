@@ -1,53 +1,75 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	// console.log('Congratulations, your extension "decapsulator" is now active!');
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const delimiter: string = vscode.workspace.getConfiguration('decapsulator').delimiter;
-	const decapsulatorRawPairs: string[] = vscode.workspace.getConfiguration('decapsulator').decapsulatorPairs;
-	const decapsulatorPairs: {[opener: string]: string} = {};
-	decapsulatorRawPairs.forEach(rawPair => {
-		const splitRawPair = rawPair.split(delimiter);
-		if (splitRawPair.length === 2) {
-			decapsulatorPairs[splitRawPair[0]] = splitRawPair[1];
+
+	const sorter = (a: number, b: number, desc: boolean = false) => {
+		if (desc) {[a, b] = [b, a];}
+		if (a > b) {return 1;}
+		if (a < b) {return -1;}
+		return 0;
+	};
+
+	const processConfiguration = () => {
+		const delimiter: string = vscode.workspace.getConfiguration('decapsulator').delimiter;
+		const decapsulatorRawPairs: string[] = vscode.workspace.getConfiguration('decapsulator').decapsulatorPairs;
+		const decapsulatorPairs: {[opener: string]: string} = {};
+		const startingLengths: number[] = [];
+		const endingLengths: number[] = [];
+		decapsulatorRawPairs.forEach(rawPair => {
+			const splitRawPair = rawPair.split(delimiter);
+			if (splitRawPair.length === 2) {
+				decapsulatorPairs[splitRawPair[0]] = splitRawPair[1];
+				if (!startingLengths.includes(splitRawPair[0].length)) {
+					startingLengths.push(splitRawPair[0].length);
+				}
+				if (!endingLengths.includes(splitRawPair[1].length)) {
+					endingLengths.push(splitRawPair[1].length);
+				}
+			}
+		});
+		startingLengths.sort((a, b) => sorter(a, b, true));
+		endingLengths.sort((a, b) => sorter(a, b, true));
+		return { decapsulatorPairs, startingLengths, endingLengths };
+	};
+
+	const getRangeAndChars = (editor: vscode.TextEditor, cursor: vscode.Position, offset: number) => {
+		let range;
+		if (offset >= 0) {
+			range = new vscode.Range(cursor, cursor.translate(0, offset));
+		} else {
+			range = new vscode.Range(cursor.translate(0, offset), cursor);
 		}
-	});
+		const chars = editor.document.getText(range);
+		return { range, chars };
+	};
+
+	const { decapsulatorPairs, startingLengths, endingLengths } = processConfiguration();
+
 	let disposable = vscode.commands.registerCommand('decapsulator.decapsulate', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
-			let cursorStart = editor.selection.start;
-			let cursorEnd = editor.selection.end;
-			if (cursorEnd.isAfter(cursorStart)) {
-				let firstRange = new vscode.Range(cursorStart, cursorStart.translate(0, 1));
-				let lastRange = new vscode.Range(cursorEnd.translate(0, -1), cursorEnd);
-				const firstChar = editor.document.getText(firstRange);
-				const lastChar = editor.document.getText(lastRange);
-				// vscode.window.showInformationMessage(`${firstChar} ${lastChar}`);
-				if (decapsulatorPairs[firstChar] === lastChar) {
-					editor.edit(editBuilder => {
-						editBuilder.delete(lastRange);
-						editBuilder.delete(firstRange);
-					});
+			const cursorStart = editor.selection.start;
+			const cursorEnd = editor.selection.end;
+			for (const startingLength of startingLengths) {
+				const {range: startRange, chars: firstChars} = getRangeAndChars(editor, cursorStart, startingLength);
+				if (!decapsulatorPairs[firstChars]) {continue;}
+				for (const endingLength of endingLengths) {
+					if (cursorEnd.translate(0, 1 - endingLength).isAfter(cursorStart.translate(0, startingLength))) {
+						const {range: endRange, chars: lastChars} = getRangeAndChars(editor, cursorEnd, -1 * endingLength);
+						if (decapsulatorPairs[firstChars] === lastChars) {
+							editor.edit(editBuilder => {
+								editBuilder.delete(endRange);
+								editBuilder.delete(startRange);
+							});
+							return true;
+						}
+					}
 				}
-	
 			}
 		}
-
 	});
 
 	context.subscriptions.push(disposable);
 }
 
-// this method is called when your extension is deactivated
 export function deactivate() {}
