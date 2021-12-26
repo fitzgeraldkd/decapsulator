@@ -54,6 +54,7 @@ export function activate(context: vscode.ExtensionContext) {
 				const {range: startRange, chars: firstChars} = getRangeAndChars(editor, cursorStart, startingLength);
 				if (!decapsulatorPairs[firstChars]) {continue;}
 				for (const endingLength of endingLengths) {
+					if (cursorEnd.character < endingLength) {continue;}
 					if (cursorEnd.translate(0, 1 - endingLength).isAfter(cursorStart.translate(0, startingLength))) {
 						const {range: endRange, chars: lastChars} = getRangeAndChars(editor, cursorEnd, -1 * endingLength);
 						if (decapsulatorPairs[firstChars] === lastChars) {
