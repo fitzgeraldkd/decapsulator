@@ -4,4 +4,19 @@ All notable changes to the "decapsulator" extension will be documented in this f
 
 ## 1.0.0 - 2021-12-26
 
-- Initial release
+### Added
+
+- This CHANGELOG file.
+
+### Changed
+
+- Logic in extension.ts to allow for multi-character starting/closing strings to be found and removed.
+
+### Fixed
+
+- Display name in package.json.
+- Scripts in package.json.
+
+## 0.0.1 - 2021-12-23
+
+- Initial release.
