@@ -43,7 +43,13 @@ export function activate(context: vscode.ExtensionContext) {
 		return { range, chars };
 	};
 
-	const { decapsulatorPairs, startingLengths, endingLengths } = processConfiguration();
+	let { decapsulatorPairs, startingLengths, endingLengths } = processConfiguration();
+
+	vscode.workspace.onDidChangeConfiguration(e => {
+		if (e.affectsConfiguration('decapsulator')) {
+			({ decapsulatorPairs, startingLengths, endingLengths } = processConfiguration());
+		}
+	});
 
 	let disposable = vscode.commands.registerCommand('decapsulator.decapsulate', () => {
 		const editor = vscode.window.activeTextEditor;
