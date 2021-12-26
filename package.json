@@ -2,6 +2,7 @@
   "name": "decapsulator",
 	"displayName": "Decapsulator",
 	"description": "Remove quotes/brackets encapsulating the current selection.",
+	"publisher": "fitzgeraldkd",
 	"author": {
 		"name": "Kenny Fitzgerald"
 	},
