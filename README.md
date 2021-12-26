@@ -11,13 +11,13 @@ The default shortcuts are as follows:
 
 ## Demo
 
-![Demo of Decapsulator](./decapsulator-demo.gif)
+![Demo of Decapsulator](./images/decapsulator-demo.gif)
 
 ## Settings
 
 The characters that can be removed by the application are limited to what's specified in the settings.
 
-![Demo of Decapsulator](./decapsulator-settings.png)
+![Demo of Decapsulator](./images/decapsulator-settings.png)
 
 ### Delimiter
 
