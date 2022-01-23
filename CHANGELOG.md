@@ -2,6 +2,12 @@
 
 All notable changes to the "decapsulator" extension will be documented in this file.
 
+## 1.0.1 - 2022-01-23
+
+### Changed
+
+- Removed `.vscode/` directory from repository.
+
 ## 1.0.0 - 2021-12-26
 
 ### Added
