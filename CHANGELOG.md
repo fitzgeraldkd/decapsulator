@@ -2,6 +2,10 @@
 
 All notable changes to the "decapsulator" extension will be documented in this file.
 
+## 1.0.2 - 2022-04-22
+
+- Added `shift+cmd+a` as the default shortcut on Mac.
+
 ## 1.0.1 - 2022-01-23
 
 ### Changed

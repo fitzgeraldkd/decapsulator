@@ -7,7 +7,7 @@ To prevent the unintentional removal of characters, the command will only execut
 The default shortcuts are as follows:
 
 - Windows: `Ctrl+Shift+A`
-- Mac: TBD (open to suggestions!)
+- Mac: `Shift+Cmd+A`
 
 ## Demo
 

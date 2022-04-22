@@ -7,7 +7,7 @@
 		"name": "Kenny Fitzgerald"
 	},
 	"icon": "decapsulator-icon.png",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"engines": {
 		"vscode": "^1.63.0"
 	},
@@ -29,6 +29,7 @@
 			{
 				"command": "decapsulator.decapsulate",
 				"key": "ctrl+shift+a",
+				"mac": "shift+cmd+a",
 				"when": "editorTextFocus && editorHasSelection"
 			}
 		],
