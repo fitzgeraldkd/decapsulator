@@ -1,5 +1,5 @@
 {
-  "name": "decapsulator",
+	"name": "decapsulator",
 	"displayName": "Decapsulator",
 	"description": "Remove quotes/brackets encapsulating the current selection.",
 	"publisher": "fitzgeraldkd",
@@ -7,7 +7,7 @@
 		"name": "Kenny Fitzgerald"
 	},
 	"icon": "decapsulator-icon.png",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"engines": {
 		"vscode": "^1.63.0"
 	},
@@ -15,7 +15,7 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:decapsulator.decapsulate"
+		"onCommand:decapsulator.decapsulate"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -53,6 +53,7 @@
 						"\" \"",
 						"( )",
 						"[ ]",
+						"${ }",
 						"{ }",
 						"` `",
 						"< >"
