@@ -17,7 +17,7 @@ The default shortcuts are as follows:
 
 The characters that can be removed by the application are limited to what's specified in the settings.
 
-![Demo of Decapsulator](./images/decapsulator-settings.png)
+![Sample settings](./images/decapsulator-settings.png)
 
 ### Delimiter
 
